@@ -37,5 +37,5 @@ app.get('/talker/:id', async (request, response) => {
 
 app.post('/login', (_req, res) => {
   const token = randomBytes(8).toString('hex');
-  res.status(HTTP_CREATED_STATUS).json({ token });
+  res.status(HTTP_OK_STATUS).json({ token });
 });
