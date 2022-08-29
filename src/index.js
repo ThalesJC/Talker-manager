@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 
 const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
+const HTTP_NOT_FOUND_STATUS = 404;
 const PORT = '3000';
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -27,8 +28,11 @@ app.get('/talker/:id', async (request, response) => {
   const talkers = await getAllTalkers();
   const id = Number(request.params.id); 
   const talker = talkers.find((e) => e.id === id);
-  console.log(talker);
-  response.status(HTTP_OK_STATUS).json(talker);
+  if (talker) {
+    return response.status(HTTP_OK_STATUS).json(talker);
+  }
+  return response.status(HTTP_NOT_FOUND_STATUS)
+    .json({ message: 'Pessoa palestrante não encontrada' });
 });
 
 app.post('/login', (_req, res) => {
