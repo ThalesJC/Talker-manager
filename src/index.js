@@ -6,7 +6,7 @@ const { getAllTalkers } = require('./services');
 app.use(bodyParser.json());
 
 const HTTP_OK_STATUS = 200;
-const HTTP_CREATED_STATUS = 201;
+// const HTTP_CREATED_STATUS = 201;
 const HTTP_NOT_FOUND_STATUS = 404;
 const PORT = '3000';
 
