@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser');
+const { randomBytes } = require('crypto');
 const app = require('./app');
 const { getAllTalkers } = require('./services');
 
 app.use(bodyParser.json());
 
 const HTTP_OK_STATUS = 200;
+const HTTP_CREATED_STATUS = 201;
 const PORT = '3000';
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -29,6 +31,7 @@ app.get('/talker/:id', async (request, response) => {
   response.status(HTTP_OK_STATUS).json(talker);
 });
 
-// app.post('/login', () => {
-
-// });
+app.post('/login', (_req, res) => {
+  const token = randomBytes(8).toString('hex');
+  res.status(HTTP_CREATED_STATUS).json({ token });
+});
