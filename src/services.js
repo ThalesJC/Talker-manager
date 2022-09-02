@@ -26,7 +26,7 @@ const createNewTalker = async ({ name, age, talk }) => {
 
 const editTalker = async (id, { name, age, talk }) => {
     const data = await readTalkers();
-    const editedTalker = data.find((element) => element.id === Number(id));
+    const editedTalker = data.find((talker) => talker.id === Number(id));
     editedTalker.name = name;
     editedTalker.age = age;
     editedTalker.talk = talk;
@@ -34,9 +34,17 @@ const editTalker = async (id, { name, age, talk }) => {
     return editedTalker;
 };
 
+const deleteTalker = async (id) => {
+    const data = await readTalkers();
+    const filteredData = data.filter((talker) => talker.id !== Number(id));
+    await writeFile(path, JSON.stringify(filteredData), 'utf-8');
+    console.log(filteredData);
+};
+
 module.exports = {
     readTalkers,
     getAllTalkers,
     createNewTalker,
     editTalker,
+    deleteTalker,
 };

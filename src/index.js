@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const app = require('./app');
-const { getAllTalkers, createNewTalker, editTalker } = require('./services');
+const { getAllTalkers, createNewTalker, editTalker, deleteTalker } = require('./services');
 const emailValidation = require('./middlewares/emailValidation');
 const passwordValidation = require('./middlewares/passwordValidation');
 const tokenValidation = require('./middlewares/talkerValidations/tokenValidation');
@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
 const HTTP_NOT_FOUND_STATUS = 404;
+const HTTP_NO_CONTENT_STATUS = 204;
 const PORT = '3000';
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -62,4 +63,10 @@ watchedAtValidation, rateValidation,
     const { id } = request.params;
     const editedTalker = await editTalker(id, dataTalker);
     response.status(HTTP_OK_STATUS).json(editedTalker);
+  });
+
+  app.delete('/talker/:id', tokenValidation, async (request, response) => {
+    const { id } = request.params;
+    await deleteTalker(id);
+    response.status(HTTP_NO_CONTENT_STATUS).end();
   });
