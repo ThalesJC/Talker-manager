@@ -1,4 +1,4 @@
-const { readFile } = require('fs').promises;
+const { readFile, writeFile } = require('fs').promises;
 
 const path = 'src/talker.json';
 
@@ -12,7 +12,20 @@ const getAllTalkers = async () => {
     return data;
 };
 
+const createNewTalker = async ({ name, age, talk }) => {
+    const data = await readTalkers();
+    data.push({
+        name,
+        age,
+        id: data[data.length - 1].id + 1,
+        talk,
+    });
+    await writeFile(path, JSON.stringify(data));
+    return data[data.length - 1];
+};
+
 module.exports = {
     readTalkers,
     getAllTalkers,
+    createNewTalker,
 };

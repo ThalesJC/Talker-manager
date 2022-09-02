@@ -1,5 +1,5 @@
 const tokenValidation = (req, res, next) => {
-    const { token } = req.headers.authorization;
+    const token = req.header('authorization');
     const regToken = /\w{16}/;
     const HTTP_UNAUTHORIZED_STATUS = 401;
     if (!token) {

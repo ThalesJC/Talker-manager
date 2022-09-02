@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const app = require('./app');
-const { getAllTalkers } = require('./services');
+const { getAllTalkers, createNewTalker } = require('./services');
 const emailValidation = require('./middlewares/emailValidation');
 const passwordValidation = require('./middlewares/passwordValidation');
 const tokenValidation = require('./middlewares/talkerValidations/tokenValidation');
@@ -47,7 +47,8 @@ app.post('/login', emailValidation, passwordValidation, (_req, response) => {
 });
 
 app.post('/talker', tokenValidation, nameValidation, ageValidation, talkValidation,
-  (_request, response) => {
+  async (request, response) => {
+    const newTalker = await createNewTalker(request.body);
     response.status(HTTP_CREATED_STATUS)
-      .json({ message: 'Pessoa palestrante criada com sucesso!' });
+      .json(newTalker);
 });
