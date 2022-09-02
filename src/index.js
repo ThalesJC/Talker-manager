@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const app = require('./app');
-const { getAllTalkers, createNewTalker } = require('./services');
+const { getAllTalkers, createNewTalker, editTalker } = require('./services');
 const emailValidation = require('./middlewares/emailValidation');
 const passwordValidation = require('./middlewares/passwordValidation');
 const tokenValidation = require('./middlewares/talkerValidations/tokenValidation');
@@ -54,3 +54,12 @@ watchedAtValidation, rateValidation,
     response.status(HTTP_CREATED_STATUS)
       .json(newTalker);
 });
+
+app.put('/talker/:id', tokenValidation, nameValidation, ageValidation, talkValidation,
+watchedAtValidation, rateValidation,
+  async (request, response) => {
+    const dataTalker = request.body;
+    const { id } = request.params;
+    const editedTalker = await editTalker(id, dataTalker);
+    response.status(HTTP_OK_STATUS).json(editedTalker);
+  });

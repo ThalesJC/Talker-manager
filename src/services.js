@@ -20,12 +20,23 @@ const createNewTalker = async ({ name, age, talk }) => {
         id: data[data.length - 1].id + 1,
         talk,
     });
-    await writeFile(path, JSON.stringify(data));
+    await writeFile(path, JSON.stringify(data), 'utf-8');
     return data[data.length - 1];
+};
+
+const editTalker = async (id, { name, age, talk }) => {
+    const data = await readTalkers();
+    const editedTalker = data.find((element) => element.id === Number(id));
+    editedTalker.name = name;
+    editedTalker.age = age;
+    editedTalker.talk = talk;
+    await writeFile(path, JSON.stringify(data), 'utf-8');
+    return editedTalker;
 };
 
 module.exports = {
     readTalkers,
     getAllTalkers,
     createNewTalker,
+    editTalker,
 };
