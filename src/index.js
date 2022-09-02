@@ -5,9 +5,10 @@ const { getAllTalkers, createNewTalker } = require('./services');
 const emailValidation = require('./middlewares/emailValidation');
 const passwordValidation = require('./middlewares/passwordValidation');
 const tokenValidation = require('./middlewares/talkerValidations/tokenValidation');
-const talkValidation = require('./middlewares/talkerValidations/talkValidation');
 const ageValidation = require('./middlewares/talkerValidations/ageValidation');
 const nameValidation = require('./middlewares/talkerValidations/nameValidation');
+const { talkValidation, watchedAtValidation,
+  rateValidation } = require('./middlewares/talkerValidations/talkValidation');
 
 app.use(bodyParser.json());
 
@@ -47,6 +48,7 @@ app.post('/login', emailValidation, passwordValidation, (_req, response) => {
 });
 
 app.post('/talker', tokenValidation, nameValidation, ageValidation, talkValidation,
+watchedAtValidation, rateValidation,
   async (request, response) => {
     const newTalker = await createNewTalker(request.body);
     response.status(HTTP_CREATED_STATUS)
