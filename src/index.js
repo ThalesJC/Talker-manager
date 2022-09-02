@@ -1,7 +1,8 @@
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const app = require('./app');
-const { getAllTalkers, createNewTalker, editTalker, deleteTalker } = require('./services');
+const { getAllTalkers, createNewTalker, editTalker, deleteTalker,
+  searchTalker } = require('./services');
 const emailValidation = require('./middlewares/emailValidation');
 const passwordValidation = require('./middlewares/passwordValidation');
 const tokenValidation = require('./middlewares/talkerValidations/tokenValidation');
@@ -30,6 +31,12 @@ app.listen(PORT, () => {
 app.get('/talker', async (_request, response) => {
     const talkers = await getAllTalkers();
     return talkers ? response.status(HTTP_OK_STATUS).json(talkers) : [];
+});
+
+app.get('/talker/search', tokenValidation, async (request, response) => {
+  const { q } = request.query;
+  const searchResponse = await searchTalker(q);
+  response.status(HTTP_OK_STATUS).json(searchResponse);
 });
 
 app.get('/talker/:id', async (request, response) => {

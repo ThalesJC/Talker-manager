@@ -38,7 +38,12 @@ const deleteTalker = async (id) => {
     const data = await readTalkers();
     const filteredData = data.filter((talker) => talker.id !== Number(id));
     await writeFile(path, JSON.stringify(filteredData), 'utf-8');
-    console.log(filteredData);
+};
+
+const searchTalker = async (search) => {
+const data = await readTalkers();
+const searchFilteredData = data.filter((talker) => talker.name.includes(search));
+return searchFilteredData;
 };
 
 module.exports = {
@@ -47,4 +52,5 @@ module.exports = {
     createNewTalker,
     editTalker,
     deleteTalker,
+    searchTalker,
 };
