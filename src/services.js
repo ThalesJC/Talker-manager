@@ -27,6 +27,7 @@ const createNewTalker = async ({ name, age, talk }) => {
 const editTalker = async (id, { name, age, talk }) => {
     const data = await readTalkers();
     const editedTalker = data.find((talker) => talker.id === Number(id));
+    console.log(editedTalker);
     editedTalker.name = name;
     editedTalker.age = age;
     editedTalker.talk = talk;
