@@ -1,10 +1,4 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Bem vindo ao Talker Manager!
+Este foi o primeiro projeto de backend, desenvolvido durante o curso da Trybe onde simulei uma API que gerencia o cadastro de palestrantes onde é possivel
+cadastrar, visualisar, pesquisar editar e excluir informações.
+Esta é uma API seguindo o padrão CRUD de maneira simples, realizando escrita e leitura em um arquivo local através do modulo "fs".
