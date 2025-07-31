@@ -1,6 +1,6 @@
 const { readFile, writeFile } = require('fs').promises;
 
-const path = 'src/talker.json';
+const path = 'JS/src/talker.json';
 
 const readTalkers = async () => {
     const talkers = await readFile(path, 'utf-8');
